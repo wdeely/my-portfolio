@@ -247,7 +247,7 @@ export default function Portfolio() {
                 <h2 style={styles.detailSectionHeadline}>{s.headline}</h2>
                 {s.body ? <p style={styles.detailSectionBody}>{s.body}</p> : null}
                 {s.images && s.images.length > 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "16px", maxWidth: s.imageMaxWidth ?? (s.images.length === 1 ? "41%" : "75%"), margin: "16px auto 0" }}>
+                  <div className="section-images" style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "16px", maxWidth: s.imageMaxWidth ?? (s.images.length === 1 ? "41%" : "75%"), margin: "16px auto 0" }}>
                     {s.images.map((src, j) =>
                       src.endsWith(".pdf")
                         ? <object key={j} data={src} type="application/pdf" style={{ ...styles.midImage, height: "520px" }} />
@@ -477,6 +477,10 @@ export default function Portfolio() {
           }
           .hero-pair img {
             width: 100% !important;
+          }
+          .section-images {
+            max-width: 100% !important;
+            margin: 16px 0 0 !important;
           }
         }
 
