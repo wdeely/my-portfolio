@@ -193,7 +193,7 @@ export default function Portfolio() {
       <div style={styles.root}>
         <div style={styles.grain} />
         <div style={styles.gridBg} />
-        <div style={{ ...styles.container, maxWidth: "780px" }}>
+        <div style={{ ...styles.container, maxWidth: "780px" }} className="site-container">
 
           {/* Back */}
           {/* The onClick event calls `setSelected(null)` to clear the selection and return to the main grid. */}
@@ -213,7 +213,7 @@ export default function Portfolio() {
 
           {/* Hero image(s) */}
           {detail.hero && (
-            <div style={detail.hero2 ? styles.heroPair : null}>
+            <div style={detail.hero2 ? styles.heroPair : null} className={detail.hero2 ? "hero-pair" : ""}>
               <img src={detail.hero} alt={selected.title} style={detail.hero2 ? styles.heroPairImg : styles.heroImg} />
               {detail.hero2 && <img src={detail.hero2} alt="" style={styles.heroPairImg} />}
             </div>
@@ -313,17 +313,17 @@ export default function Portfolio() {
       <div style={styles.gridBg} />
 
 
-      <div style={styles.container}>
+      <div style={styles.container} className="site-container">
         {/* Header */}
         <header style={styles.header}>
           <div style={styles.headerTop}>
             <span style={styles.label}>MEng · Nuclear Safety · AtkinsRéalis</span>
             <span style={styles.year}>Est. 2026</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px" }}>
-            <GearIcon style={styles.nameGear} />
+          <div className="name-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px" }}>
+            <GearIcon style={styles.nameGear} className="name-gear" />
             <h1 style={{ ...styles.name, textAlign: "center" }}>William<br /><span style={styles.nameAccent}>Deely</span></h1>
-            <GearIcon style={{ ...styles.nameGear, animationDirection: "reverse" }} />
+            <GearIcon style={{ ...styles.nameGear, animationDirection: "reverse" }} className="name-gear" />
           </div>
           <p style={styles.tagline}>
             Mechanical Engineering graduate with experience in
@@ -335,7 +335,7 @@ export default function Portfolio() {
         </header>
 
         {/* Filter bar */}
-        <nav style={styles.filterBar}>
+        <nav style={styles.filterBar} className="filter-bar">
           {/* Iterate over all categories to create a filter button for each */}
           {allCategories.map((cat) => (
             <button
@@ -356,7 +356,7 @@ export default function Portfolio() {
         </nav>
 
         {/* Project grid */}
-        <div style={styles.grid}>
+        <div style={styles.grid} className="proj-grid">
           {/* Iterate through the currently filtered list of projects */}
           {filtered.map((p) => (
             <div
@@ -457,6 +457,34 @@ export default function Portfolio() {
 
         .card-enter {
           animation: fadeUp 0.4s ease forwards;
+        }
+
+        @media (max-width: 600px) {
+          .site-container {
+            padding: 40px 16px 60px !important;
+          }
+          .proj-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .filter-bar {
+            gap: 6px !important;
+          }
+          .name-row svg {
+            display: none;
+          }
+          .hero-pair {
+            flex-direction: column !important;
+          }
+          .hero-pair img {
+            width: 100% !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          .filter-bar button {
+            font-size: 9px !important;
+            padding: 5px 8px !important;
+          }
         }
       `}</style>
     </div>
