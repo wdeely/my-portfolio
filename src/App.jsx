@@ -94,7 +94,7 @@ const projectDetails = {
   1: {
     hero: atkinsPhoto,
     sections: [
-      { headline: "Placement Overview", body: "Industrial placement within AtkinsRéalis Nuclear & Power. Contributed to multiple work packages across safety analysis and probabilistic engineering disciplines. Led authorship on client-facing deliverables. Specific project scope is withheld." },
+      { headline: "Placement Overview", body: "Industrial placement within AtkinsRéalis Nuclear & Power. Contributed to multiple work packages across safety analysis and probabilistic engineering disciplines. Led authorship on client-facing deliverables." },
       { headline: "Skills Applied", body: "Safety case argumentation, probabilistic engineering analysis, regulatory compliance, and technical report authoring to industry standards." },
     ],
     images: [],
@@ -333,8 +333,6 @@ export default function Portfolio() {
         {/* Header */}
         <header style={styles.header}>
           <div style={styles.headerTop}>
-            <span style={styles.label}>MEng · Nuclear Safety · AtkinsRéalis</span>
-            <span style={styles.year}>Est. 2026</span>
           </div>
           <div className="name-row" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "16px" }}>
             <GearIcon style={styles.nameGear} className="name-gear" />
