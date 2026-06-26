@@ -1,6 +1,6 @@
 // Import the `useState` hook from the React library.
 // Hooks are functions that let you "hook into" React state and lifecycle features from function components.
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import explodedView from "./assets/subassembly exploded view.png";
 import dsc8725 from "./assets/DSC_8725.JPG";
 import feaWingbox from "./assets/FEA wingbox.png";
@@ -176,6 +176,22 @@ export default function Portfolio() {
   // `selected` tracks which project has been clicked on to view its details.
   const [selected, setSelected] = useState(null);
 
+  useEffect(() => {
+    const handlePopState = () => setSelected(null);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const openProject = (p) => {
+    setSelected(p);
+    window.history.pushState({ projectId: p.id }, "", `#${p.id}`);
+  };
+
+  const closeProject = () => {
+    setSelected(null);
+    window.history.back();
+  };
+
   // Filter the projects array based on the `active` category.
   // If "All" is selected, show all projects; otherwise, only keep projects matching the active category.
   const filtered =
@@ -197,7 +213,7 @@ export default function Portfolio() {
 
           {/* Back */}
           {/* The onClick event calls `setSelected(null)` to clear the selection and return to the main grid. */}
-          <button style={styles.backBtn} onClick={() => setSelected(null)}>
+          <button style={styles.backBtn} onClick={closeProject}>
             ← Back to projects
           </button>
 
@@ -214,7 +230,7 @@ export default function Portfolio() {
           {/* Hero image(s) */}
           {detail.hero && (
             <div style={detail.hero2 ? styles.heroPair : null} className={detail.hero2 ? "hero-pair" : ""}>
-              <img src={detail.hero} alt={selected.title} style={detail.hero2 ? styles.heroPairImg : styles.heroImg} />
+              <img src={detail.hero} alt={selected.title} style={detail.hero2 ? styles.heroPairImg : styles.heroImg} className="hero-img" />
               {detail.hero2 && <img src={detail.hero2} alt="" style={styles.heroPairImg} />}
             </div>
           )}
@@ -277,7 +293,7 @@ export default function Portfolio() {
           )}
 
           {/* Additional images */}
-          <div style={styles.imageGrid}>
+          <div style={styles.imageGrid} className="image-grid">
             {detail.images.map((src, i) =>
               src
                 ? <img key={i} src={src} alt="" style={styles.detailImg} />
@@ -371,7 +387,7 @@ export default function Portfolio() {
               // Set hovered/selected state on user interaction
               onMouseEnter={() => setHovered(p.id)}
               onMouseLeave={() => setHovered(null)}
-              onClick={() => setSelected(p)}
+              onClick={() => openProject(p)}
             >
               {/* Card top bar */}
               <div style={styles.cardBar}>
@@ -481,6 +497,22 @@ export default function Portfolio() {
           .section-images {
             max-width: 100% !important;
             margin: 16px 0 0 !important;
+          }
+          .hero-img {
+            width: 90% !important;
+            max-width: 100% !important;
+          }
+          .hero-pair {
+            flex-direction: column !important;
+          }
+          .hero-pair img {
+            width: 100% !important;
+          }
+          .image-grid {
+            grid-template-columns: 1fr !important;
+          }
+          object {
+            height: 320px !important;
           }
         }
 
